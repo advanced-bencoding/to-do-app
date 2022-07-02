@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { StyleSheet, View, TextInput, Button, Modal } from "react-native"
+import { StyleSheet, View, TextInput, Button, Modal, Image } from "react-native"
 
 export default function ListInput(props){
     const [text, setText] = useState('')
@@ -22,15 +22,16 @@ export default function ListInput(props){
     }
 
     return(
-        <Modal visible={props.visibility} animationType="slide">
+        <Modal visible={props.visibility} animationType="slide" style={styles.modal}>
             <View style={styles.inputContainer}>
+                <Image source={require('../images/notes.png')} style={styles.image}/>
                 <TextInput style={styles.textInput}  placeholder='To do' onChangeText={controlledInput} value={text}/>
                 <View style={styles.buttonContainer}>
                     <View style={styles.button}>
-                        <Button title='Add to List' onPress={listCheckAndAdd}/>
+                        <Button title='Add to List' onPress={listCheckAndAdd} color='green'/>
                     </View>
                     <View style={styles.button}>
-                        <Button title='Cancel' onPress={cancel}/>
+                        <Button title='Cancel' onPress={cancel} color='red'/>
                     </View>               
                 </View>
             </View>
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
-    padding: 10
+    padding: 10,
   },
 
   textInput: {
@@ -66,5 +67,11 @@ const styles = StyleSheet.create({
     width:'25%',
     marginHorizontal: 25,
     marginVertical: 20
-  }
+  },
+
+  image:{
+    width: 100,
+    height: 100,
+    marginBottom: 20
+  },
 })
