@@ -1,14 +1,19 @@
-import { useState, useEffect } from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
+import { useState } from 'react';
+import { StyleSheet, View, FlatList, Button } from 'react-native';
 import ListInput from './components/ListInput';
 import ListItem from './components/ListItem';
 
 export default function App() {
   
   const [toDoList, setToDoList] = useState([])
+  const [modalVisibility, setModalVisibility] = useState(false)
 
   function addToList(text){
     setToDoList(prev=>[...prev, {text: text, id:Math.random()}])
+  }
+
+  function takeInput(){
+    setModalVisibility(!modalVisibility)
   }
 
   function deleteItem(id){
@@ -19,7 +24,8 @@ export default function App() {
 
   return (
     <View style={styles.appContainer}>
-      <ListInput addToList={addToList}/>
+      <Button title='Add New Item' color="green" onPress={takeInput}/>
+      <ListInput addToList={addToList} visibility={modalVisibility} changeVis={takeInput}/>
       <View style={styles.listContainer}>
         <FlatList data={toDoList} renderItem={data => {
           return <ListItem text={data.item.text} deleteItem={deleteItem} id={data.item.id}/>
