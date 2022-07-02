@@ -11,8 +11,10 @@ export default function App() {
   }
 
   function addToList(){
-    setToDoList(prev=>[...prev, text])
-    setText('')
+    if(text!=""){
+      setToDoList(prev=>[...prev, text])
+      setText('')
+    }
   }
 
   return (
