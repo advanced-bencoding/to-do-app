@@ -1,8 +1,10 @@
-import { StyleSheet, Text } from "react-native"
+import { StyleSheet, Text, Pressable } from "react-native"
 
 export default function ListItem(props){
     return(
-        <Text style={styles.listItem}>{props.text}</Text>
+        <Pressable android_ripple={{color: 'blue'}} onPress={props.deleteItem.bind(this, props.id)}>
+            <Text style={styles.listItem}>{props.text}</Text>
+        </Pressable>
     )
 }
 
