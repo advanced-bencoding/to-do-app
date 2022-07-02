@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView } from 'react-native';
 
 export default function App() {
 
@@ -12,18 +12,21 @@ export default function App() {
 
   function addToList(){
     setToDoList(prev=>[...prev, text])
+    setText('')
   }
 
   return (
     <View style={styles.appContainer}>
       <View style={styles.inputContainer}>
-        <TextInput style={styles.textInput}  placeholder='To do' onChangeText={controlledInput}/>
+        <TextInput style={styles.textInput}  placeholder='To do' onChangeText={controlledInput} value={text}/>
         <Button title='Add to List' onPress={addToList}/>
       </View>
       <View style={styles.listContainer}>
-        {
-          toDoList.map((x,i) => <Text key={i}>{x}</Text>)
-        }
+        <ScrollView>
+          {
+            toDoList.map((x,i) => <Text key={i} style={styles.listItem}>{x}</Text>)
+          }
+        </ScrollView>
       </View>
     </View>
   );
@@ -55,5 +58,13 @@ const styles = StyleSheet.create({
   listContainer: {
     flex: 10,
     marginTop: 10,
+  },
+
+  listItem:{
+    marginVertical: 5,
+    padding: 10,
+    fontSize: 20,
+    borderWidth: 0.5,
+    borderRadius: 10
   }
 });
