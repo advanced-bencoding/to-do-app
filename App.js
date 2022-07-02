@@ -1,17 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
+import { useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
 export default function App() {
+
+  const [text, setText] = useState('')
+  const [toDoList, setToDoList] = useState([])
+
+  function controlledInput(enteredText){
+    setText(enteredText)
+  }
+
+  function addToList(){
+    setToDoList(prev=>[...prev, text])
+  }
+
   return (
     <View style={styles.appContainer}>
       <View style={styles.inputContainer}>
-        <TextInput style={styles.textInput}  placeholder='To do'/>
-        <Button title='Add to List' />
+        <TextInput style={styles.textInput}  placeholder='To do' onChangeText={controlledInput}/>
+        <Button title='Add to List' onPress={addToList}/>
       </View>
-      <View>
-        <Text>
-          Items
-        </Text>
+      <View style={styles.listContainer}>
+        {
+          toDoList.map((x,i) => <Text key={i}>{x}</Text>)
+        }
       </View>
     </View>
   );
@@ -19,15 +31,18 @@ export default function App() {
 
 const styles = StyleSheet.create({
   appContainer: {
-    paddingTop: 80,
+    paddingTop: 60,
     paddingHorizontal: 20,
+    flex: 1,
   },
 
   inputContainer: {
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingBottom: 20
+    marginBottom: 10,
+    borderBottomWidth: 1
   },
 
   textInput: {
@@ -36,4 +51,9 @@ const styles = StyleSheet.create({
     width: '70%',
     padding: 5,
   },
+
+  listContainer: {
+    flex: 10,
+    marginTop: 10,
+  }
 });
