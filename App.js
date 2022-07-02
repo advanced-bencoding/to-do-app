@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, FlatList } from 'react-native';
 
 export default function App() {
 
@@ -22,11 +22,11 @@ export default function App() {
         <Button title='Add to List' onPress={addToList}/>
       </View>
       <View style={styles.listContainer}>
-        <ScrollView>
-          {
-            toDoList.map((x,i) => <Text key={i} style={styles.listItem}>{x}</Text>)
-          }
-        </ScrollView>
+        <FlatList data={toDoList} renderItem={item => {
+          return(
+            <Text style={styles.listItem}>{item.item}</Text>
+          )
+        }}/>
       </View>
     </View>
   );
